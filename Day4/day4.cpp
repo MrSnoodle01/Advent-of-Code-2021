@@ -6,14 +6,16 @@
 
 using namespace std;
 
-int checkWin(vector<int> boards, int drawNum, vector<int> drawNumVector){
+int checkWin(vector<int> boards, int drawNum, vector<int> drawNumVector, vector<int> &boardsThatWon){
 
     int counter = 0;
     int counterTemp = 0;
+    bool hasWon = false;
 
         for(int k = 1; k < boards.size() / 25 + 1; k++){
             counter *= 25;
             counterTemp = counter;
+            hasWon = false;
 
             //CHECKS ROWS
             for(int i = 0; i < 5; i++){
@@ -27,7 +29,16 @@ int checkWin(vector<int> boards, int drawNum, vector<int> drawNumVector){
                                             if(boards[counter + 3] == drawNumVector[c]){
                                                 for(int d = 0; d < drawNum; d++){
                                                     if(boards[counter + 4] == drawNumVector[d]){
-                                                            return counterTemp;
+                                                        for(int e = 0; e < boardsThatWon.size(); e++){
+                                                            if(boardsThatWon[e] == counterTemp){
+                                                                hasWon = true;
+                                                            }
+                                                        }
+
+                                                        if(hasWon == false){
+                                                            boardsThatWon.push_back(counterTemp);
+                                                        }
+                                                        //return counterTemp;
                                                     }
                                                 }
                                             }
@@ -54,7 +65,15 @@ int checkWin(vector<int> boards, int drawNum, vector<int> drawNumVector){
                                             if(boards[counter + 15] == drawNumVector[d]){
                                                 for(int e = 0; e < drawNum; e++){
                                                     if(boards[counter + 20] == drawNumVector[e]){
-                                                            return counterTemp;
+                                                        for(int f = 0; f < boardsThatWon.size(); f++){
+                                                            if(boardsThatWon[f] == counterTemp){
+                                                                hasWon = true;
+                                                            }
+                                                        }
+                                                        if(hasWon == false){
+                                                            boardsThatWon.push_back(counterTemp);
+                                                        }
+                                                        //return counterTemp;
                                                     }
                                                 }
                                             }
@@ -119,17 +138,22 @@ int main(){
     int checkWins = 0;
     int numOfChecks = 0;
 
+    vector<int> winningBoards;
+
     for(int i = 0; i < drawNumsInt.size(); i++){
-        checkWins = checkWin(bingoBoards, i, drawNumsInt);
-        cout << checkWins << endl;
-        // cout << reverseVector[i] << " ";
-        // cout << i << endl;
+        checkWins = checkWin(bingoBoards, i, drawNumsInt, winningBoards);
         
-        if(checkWins != -1){
+        // if(checkWins != -1){
+        //     i = drawNumsInt.size() - 1;
+        // }
+        if(winningBoards.size() == 100){
             i = drawNumsInt.size() - 1;
         }
+
         numOfChecks++;
     }
+
+    checkWins = winningBoards[winningBoards.size() - 1];
 
     int total = 0;
     for(int i = 0; i < 25; i++){
