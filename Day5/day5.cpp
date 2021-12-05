@@ -25,56 +25,24 @@ int main(){
 
     string line;
     string first, second, arrow;
-    string temp;
+    int temp;
     while(getline(myFile, line)){
         istringstream ss(line);
-        temp = "";
-        if(ss >> first >> arrow >> second){
-            for(int i = 0; i < 5; i++){
-                // get x1
-                if(first[i] != ','){
-                    temp += first[i];
-                }else if(first[i] == ','){
-                    x1.push_back(stoi(temp));
-                }
-            }
 
-            temp = "";
-            for(int i = 0; i < first.size(); i++){
-                // get y1
-                if(first[i] == ','){
-                    for(int j = 1; j < 4; j++){
-                        if(first[i + j] != ' '){    
-                            temp += first[i + j];
-                        }
-                    }
-                    y1.push_back(stoi(temp));
-                }
-            }
+        ss >> temp;
+        x1.push_back(temp);
 
-            temp = "";
-            for(int i = 0; i < 5; i++){
-                // get x2
-                if(second[i] != ','){
-                    temp += second[i];
-                }else if(second[i] == ','){
-                    x2.push_back(stoi(temp));
-                }
-            }
+        ss.ignore();
+        ss >> temp;
+        y1.push_back(temp);
 
-            temp = "";
-            for(int i = 0; i < second.size(); i++){
-                // get y2
-                if(second[i] == ','){
-                    for(int j = 1; j < 4; j++){
-                        if(second[i + j] != ' '){
-                            temp += second[i + j];
-                        }
-                    }
-                    y2.push_back(stoi(temp));
-                }
-            }
-        }
+        ss.ignore(4);
+        ss >> temp;
+        x2.push_back(temp);
+
+        ss.ignore();
+        ss >> temp;
+        y2.push_back(temp);
     }
 
     for(int i = 0; i < x1.size(); i++){
