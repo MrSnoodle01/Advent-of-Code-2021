@@ -21,7 +21,6 @@ int main(){
     string line;
     getline(myFile, line);
 
-
     for(int i = 0; i < line.size(); i++){
         fishTimer.push_back(line[i] - '0');
         i++;

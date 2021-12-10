@@ -19,7 +19,7 @@ int main(){
 
     vector<int> fuelVector;
     int fuelTemp = 1, fuelTotal = 0;
-    for(int i = 1; i < 2000; i++){
+    for(int i = 1; i < 1500; i++){
         fuelTotal = 0;
         fuelTemp = 1;
         for(int j = 0; j < crabs.size(); j++){
